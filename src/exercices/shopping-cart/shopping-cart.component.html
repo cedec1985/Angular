@@ -1,0 +1,35 @@
+<h1>Panier de course V1</h1>
+
+<fieldset style="width:35%; float:left;">
+  <legend>Système d'ajout</legend>
+
+  <label>Article</label><input (ngModel)="newArtName" type="text" placeholder="votre article"><br><br>
+  <label>Quantité</label><input (ngModel)="newArtQty" max="5" min="1" type="number"><br><br>
+  <button
+    (click)="addToCart()"
+    *ngIf="
+            newArtName != undefined &&
+            newArtQty != 0 &&
+            newArtQty != undefined &&
+            newArtQty >= 1 &&
+            newArtQty <= 5"
+  >
+    Ajouter
+  </button><br>
+</fieldset>
+
+<fieldset style="width:55%; float:left;">
+  <legend>Liste des courses</legend>
+
+  <ul>
+    <li *ngFor="let itemCart of listCart">
+      {{ itemCart.qty }} x {{ itemCart.name }}
+      ajouté le {{ itemCart.dateAjout }}
+      - Traduction pour mamy : {{ itemCart.qty }}
+      <button (click)="delArticle(itemCart.name)" >X</button>
+    </li>
+  </ul>
+</fieldset>
+
+<div style="clear:both;"></div>
+

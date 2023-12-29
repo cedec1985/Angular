@@ -1,0 +1,71 @@
+<p>todo works!</p>
+
+<h3>par observable</h3>
+<p>A1: todo1 = {{todo1$ | async | json}}</p>          <!-- | async: souscrit à l'observable et récupère les données -->
+<p>A1: todo1.title = {{(todo1$ | async)?.title}}</p>  <!-- (todo1$ | async)    d'abord on souscrit -->
+       <!-- ? (facultatif: permet d'éviter une erreur si todo1$ est null) -->
+
+<h3>par variable</h3>
+<p>A2: <ng-container *ngIf="todo2">todo2 = {{todo2 | json}}</ng-container></p>   <!-- |json : convertit un objet en texte -->
+<p>A2: todo2.userId = {{todo2.userId|json}}</p>
+<p>A2: todo2.id = {{todo2.id|json}}</p>
+<p>A2: todo2.completed = {{todo2.completed|json}}</p>
+<p>A2: todo2.title = {{todo2.title|json}}</p>
+
+                                      <!-- pour un objet on utilise un *ngIf (*ngIf="todo2") -->
+                                      <!-- et pour une propriété d'un objet, on utilise '?' (todo2?.title) -->
+                                      <!-- todo2 est asynchrone, il met quelques ms pour avoir une réponse de l'API -->
+                                      <!-- durant ces ms, la vue pense que todo2 est undefined et affiche une erreur -->
+
+<p>en utilisant *ngIf (sans utiliser ?)</p>    <!-- à la place d'utiliser le '?' : {{todo2?.title}}, une autre façon est d'utiliser *ngIf="..."" -->
+<ng-container *ngIf="todo2">A2: todo2.title = {{todo2.title}}</ng-container>   <!-- *ngIf="todo2"  si todo2 existe -->
+<p>A2: todo2.userId = {{todo2?.userId|json}}</p>
+<p>A2: todo2.id = {{todo2?.id|json}}</p>
+<p>A2: todo2.completed = {{todo2?.completed|json}}</p>
+<p>A2: todo2.title = {{todo2?.title|json}}</p>
+<hr>
+
+<h2>les todos de l'utilisateur : 6</h2>
+<h3>B1 : par observable</h3>
+<ul>
+  <li *ngFor="let todo of todosByUser$ | async">
+    todo.title = {{todo.title|json}}
+    todo.id = {{todo.id|json}}
+    todo.userId = {{todo.userId|json}}
+    todo.completed={{todo.completed|json}}
+  </li>
+
+</ul>
+
+<h3>B2 : par variable</h3>
+<ul>
+  <li *ngFor="let todo of todosByUser">
+    todo.title = {{todo.title|json}}
+    todo.id = {{todo.id|json}}
+    todo.userId = {{todo.userId|json}}
+    todo.completed={{todo.completed|json}}
+  </li>
+</ul>
+
+<hr>
+
+<h2>Cas particulier : liste de todos qui est filtrée dans la vue</h2>                 <!-- on filtre par la vue (on aurait pu filtrer directement à la source) -->
+<h2>B1 : par observable les todos de l'utilisateur: 6 ayant été complétés</h2>       <!-- mais c'est pour l'exemple -->
+<ul>
+  <ng-container *ngFor="let todo of todosByUser$ | async">        <!-- ng-container est une balise "fantôme", juste un "container" (n'est pas inséré dans le DOM) -->
+                                                                  <!-- il sert à ne pas casser la structure <ul> / <li> -->
+    <li *ngIf="todo.completed">
+      todo.id = {{todo.id|json}}
+    todo.userId = {{todo.userId|json}}
+    todo.completed={{todo.completed|json}}
+      todo.title = {{todo.title|json}}
+    </li>   <!-- on filtre avec le *ngIf -->
+  </ng-container>                                                 <!-- pas besoin du '?' puisqu'on utilise un *ngIf -->
+</ul>
+
+<hr>
+
+<h2>C1 : par observable: les todos de l'utilisateur (Avec: Any)</h2>       <!-- avec any, ça fonctionne, mais il faut éviter et utiliser le typage -->
+<ng-container *ngFor="let todo of todosWithAny$ | async">
+  <p *ngIf="todo.completed">todo.title = {{todo.title}}</p>
+</ng-container>

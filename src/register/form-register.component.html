@@ -1,0 +1,160 @@
+<p>register-form works!</p>
+
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class ="col s12">
+
+    <select formControlName = "title" placeholder="titre" class ="form-control">
+      <option value="mr">Mr</option>
+      <option value="mme">Mme</option>
+    </select>
+  <input type ="text" class= "form-control input-field col s6" name ="lastName" placeholder="nom" formControlName = "lastName" 
+ required>  Votre nom
+ <ng-container *ngIf="registerForm.get('lastName')?.hasError('required') && registerForm.get('firstName')?.touched ">
+  <span class="alert alert-danger" role="alert"  *ngIf="registerForm.get('lastName')?.hasError('minlength') && registerForm.get('lastName')?.touched">
+  </span>le nom doit comporter minimum 4 caractères</ng-container>
+ 
+    <input type ="text" class= "form-control input-field col s6"  name ="firstName" placeholder="prénom"  formControlName = "firstName"
+   required>Votre prénom
+   <ng-container *ngIf="registerForm.get('firstName')?.hasError('required') && registerForm.get('firstName')?.touched" >
+    <span class="alert alert-danger" role="alert" *ngIf="registerForm.get('firstName')?.hasError('minlength') && registerForm.get('firstName')?.touched"> 
+   </span>le prénom doit comporter minimum 4 caractères </ng-container>
+   
+  <input type ="text" class= "form-control input-field col s6"  name ="pseudo" placeholder="pseudo"  formControlName = "pseudo" required>  Votre pseudo
+    <ng-container *ngIf="registerForm.get('pseudo')?.hasError('required') && registerForm.get('pseudo')?.touched" >
+      <span class="alert alert-danger" role="alert" *ngIf="registerForm.get('pseudo')?.hasError('minlength') && registerForm.get('pseudo')?.touched"> 
+      </span>le pseudo doit comporter minimum 6 caractères</ng-container>
+     
+    <input type ="tel" class= "form-control input-field col s6 "  name ="phone" placeholder="téléphone" required  formControlName = "phone">Votre téléphone
+    <ng-container *ngIf="registerForm.get('phone')?.hasError('required') && registerForm.get('phone')?.touched" >
+        <span class="alert alert-danger" role="alert" *ngIf="registerForm.get('phone')?.hasError('pattern') && registerForm.get('phone')?.touched"> 
+   </span>le téléphone est requis et le téléphone doit comporter uniquement des chiffres   </ng-container>
+    
+  <input type ="text" class= "form-control input-field col s6"  name ="city" placeholder="ville" required  formControlName = "city">Votre ville
+  <ng-container *ngIf="registerForm.get('city')?.hasError('required') && registerForm.get('city')?.touched" class="alert alert-danger" role="alert">
+   la ville doit être renseignée</ng-container> 
+
+<input type ="number" class= "form-control input-field col s6" name="code" placeholder ="code postal" required  formControlName = "code">  Votre CP
+  <ng-container *ngIf="registerForm.get('code')?.hasError('required') && registerForm.get('code')?.touched" >
+  <span class="alert alert-danger" role="alert" *ngIf="registerForm.get('code')?.hasError('minlength') && registerForm.get('code')?.touched"> 
+ </span>  le nom doit comporter minimum 4 caractères   </ng-container>
+
+<input type ="text" class= "form-control input-field col s6" name ="rue" placeholder ="rue" required  formControlName = "rue">  Votre rue
+  <ng-container *ngIf="registerForm.get('rue')?.hasError('required') && registerForm.get('rue')?.touched" class="alert alert-danger" role="alert">
+    le nom de la rue doit être renseignée
+  </ng-container>
+
+  <input type ="number" class= "form-control input-field col s6"  name ="numero" placeholder="numero"  required formControlName = "numero">  n°  
+  <ng-container *ngIf="registerForm.get('numero')?.hasError('required') && registerForm.get('numero')?.touched" class="alert alert-danger" role="alert">
+    le numéro de la rue doit être renseignée
+  </ng-container>
+  
+ <input type ="password" class= "form-control input-field col s6"  name ="password" placeholder=" mot de passe" required formControlName= "password"> Votre mot de passe
+  <ng-container *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched" >
+     
+  <span class="alert alert-danger" role="alert" *ngIf="registerForm.get('password')?.hasError('minlength') && registerForm.get('password')?.touched"> 
+ </span>
+    <span class="alert alert-danger" role="alert" *ngIf="registerForm.get('password')?.hasError('pattern') && registerForm.get('password')?.touched"> 
+    </span>le mot de passe est obligatoire , le mot de passe doit comporter minimum 8 caractères et le mot de passe doit comporter uniquement des chiffres et des lettres      </ng-container>
+ 
+<input type ="password" class= "form-control input-field col s6"  name ="confirmer" placeholder="confirmation" required  formControlName = "confirmer">   Confirmez le mot de passe
+  <ng-container *ngIf="registerForm.get('confirmer')?.hasError('required') && registerForm.get('confirmer')?.touched" class="alert alert-danger" role="alert" >la confirmation du mot de passe est obligatoire 
+  </ng-container> 
+<hr />
+  <button type="reset" (click)="onReset()">Annuler</button>
+  <button type="submit" (click) = "onSubmit()">S'enregistrer</button>
+</form>
+
+<!--
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">       
+  <div id="container">                  
+
+    <div class="bloc">                   
+      <div formGroupName="identity">       
+                <mat-form-field appearance="fill">
+                  <mat-label>Civilité</mat-label>
+                  <select matNativeControl formControlName = "title" name ="title" [ngClass]="{ 'is-invalid': submitted && title.errors }">
+                    <option value="mr">Mr</option>
+                    <option value="mme">Mme</option>
+                  </select>
+                  <mat-error *ngIf="submitted && title.errors" class="invalid-feedback">
+                    <div *ngIf="title.errors.required">La civilité est <strong>obligatoire</strong></div>
+                  </mat-error>
+                </mat-form-field>
+      </div>
+
+              <div>
+                <mat-form-field appearance="fill" class="example-full-width">
+                  <mat-label>Nom</mat-label>
+                  <input matInput placeholder = "Entrez votre nom" formControlName = "lastName" name ="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && lastName.errors }">
+                  <mat-error *ngIf="submitted && lastName.errors" class="invalid-feedback">
+                    <div *ngIf="lastName.errors.required">Le nom est <strong>obligatoire</strong></div>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div>
+                <mat-form-field appearance="fill" class="example-full-width">
+                  <mat-label>Prénom</mat-label>
+                  <input matInput placeholder = "Entrez votre prénom" formControlName = "firstName" name ="firstName "class="form-control" [ngClass]="{ 'is-invalid': submitted && firstName.errors }">
+                  <mat-error *ngIf="submitted && firstName.errors" class="invalid-feedback">
+                    <div *ngIf="firstName.errors.required">Le prénnom est <strong>obligatoire</strong></div>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+      </div>
+    </div>
+
+    <div class="bloc">                   
+            <div>
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>email</mat-label>
+                <input matInput placeholder = "Entrez votre email" formControlName = "email" class="form-control" name  = "email" [ngClass]="{ 'is-invalid': submitted && email.errors }">
+                <mat-error *ngIf="submitted && email.errors" class="invalid-feedback">
+                  <div *ngIf="email.errors.required">L'email est <strong>obligatoire</strong></div>
+                  <div *ngIf="email.errors.email">L'email doit être dans un format valide</div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Password</mat-label>
+                <input matInput #password placeholder = "mot de passe" formControlName = "password" class="form-control" name ="password"[ngClass]="{ 'is-invalid': submitted && password.errors }">
+                <mat-hint>{{password.value?.length || 0}} caractère(s) (6 minimum)</mat-hint>
+                <mat-error *ngIf="submitted && password.errors" class="invalid-feedback">
+                  <div *ngIf="password.errors.required">Le mot de passe est <strong>obligatoire</strong></div>
+                  <div *ngIf="password.errors.minlength">Le mot de passe doit contenir au moins 6 caractères</div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Confirme Password</mat-label>
+                <input matInput placeholder = "confirmation" formControlName = "confirmPassword" class="form-control" name ="confirmPassword" [ngClass]="{ 'is-invalid': submitted && confirmPassword.errors }">
+                <mat-error *ngIf="submitted && confirmPassword.errors" class="invalid-feedback">
+                  <div *ngIf="confirmPassword.errors.required">La confirmation est <strong>obligatoire</strong></div>
+                  <div *ngIf="confirmPassword.errors.mustMatch">Les mots de passe sont différents</div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div style="height: 24px;"></div>
+
+            <div>
+              <mat-checkbox id="acceptTerms" formControlName = "acceptTerms"name ="acceptTerms"  >Check me!</mat-checkbox>
+              <mat-error *ngIf="submitted && acceptTerms.errors" class="invalid-feedback">
+                <div *ngIf="acceptTerms.errors.required">Vous devez <strong>accepter</strong> les termes</div>
+              </mat-error>
+            </div>
+
+            <div style="height: 24px;"></div>
+
+            <div>
+              <button mat-raised-button color="accent" type="reset" (click)="onReset()">Annuler</button>
+              &nbsp;
+              <button mat-raised-button color="primary" type="submit">S'enregistrer</button>
+            </div>
+    </div>
+
+</form>
+-->

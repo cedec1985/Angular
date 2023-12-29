@@ -1,0 +1,16 @@
+<div class="face-snap-card">
+    <h2> {{description}}</h2>
+    <p>Mis en ligne le  {{createDate}}  🤌</p>
+    <p> {{title}}</p>
+    <img src={{imageUrl}} alt={{title}}>
+
+<h1>Chronomètre Angular</h1>
+<div class="timer">{{minutes.toString().padStart(2, '0')}} minutes {{seconds.toString().padStart(2, '0')}}secondes</div>
+
+<div class="controls">
+    <button (click)="startTimer()" [disabled]="running">Start</button>
+    <button (click)="pauseTimer()" [disabled]="!running">Pause</button>
+    <button (click)="resetTimer()">Reset</button>
+</div>
+ 
+ 

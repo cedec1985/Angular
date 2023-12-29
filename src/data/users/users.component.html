@@ -1,0 +1,9 @@
+<p>users works!</p>
+<h2>Les Utilisateurs</h2>
+<div *ngFor="let user of data">
+  <h3>{{ user.username}}</h3>
+  <p>{{ user.name }}</p>
+  <p>{{ user.email }}</p>
+  <p>{{ user.adress }}</p>
+</div>
+<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#" (click) ="downloadData()"> obtenir les données </button>

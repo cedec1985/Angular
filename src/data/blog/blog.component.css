@@ -1,0 +1,40 @@
+.blog-section {
+    margin-top: 20px;
+  }
+  
+  /* Style pour chaque article de blog individuel */
+  .blog-post {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Style pour le titre de l'article de blog */
+  .blog-post-title {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  /* Style pour la date de publication */
+  .blog-post-date {
+    font-size: 0.8em;
+    color: #888;
+  }
+  
+  /* Style pour le contenu de l'article de blog */
+  .blog-post-content {
+    line-height: 1.6;
+  }
+  
+  /* Style pour les liens dans le contenu de l'article */
+  .blog-post-content a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .blog-post-content a:hover {
+    text-decoration: underline;
+  }

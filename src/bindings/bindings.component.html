@@ -1,0 +1,15 @@
+<p>bindings works!</p>
+
+<div>
+    <h2>{{title}}</h2>
+
+    <input type="text" [(ngModel)]="title" />
+
+    <br>
+
+    <input type="button" (click)="changeTitle()" value="Click me to change the title variable">
+
+    <br>
+
+    <input type="button" (click)="disabledMe()" value="Disabled me" [disabled]="enabled">
+</div>
